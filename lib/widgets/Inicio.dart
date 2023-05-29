@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'detalle.dart';
-import 'registrar.dart';
-import 'Rutas.dart';
-import 'usuario.dart';
+import 'package:aplicacion_asly/widgets/detalle.dart';
+import 'package:aplicacion_asly/widgets/registrar.dart';
+import 'package:aplicacion_asly/widgets/Rutas.dart';
+import 'package:aplicacion_asly/widgets/usuario.dart';
 
 class Inicio extends StatefulWidget {
   const Inicio({Key? key}) : super(key: key);
@@ -41,7 +41,14 @@ class _InicioState extends State<Inicio> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Listado de usuarios"),
+        title: const Text(
+          "Listado de usuarios",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: FutureBuilder<List<Usuario>>(
         future: usuarios,
@@ -62,10 +69,10 @@ class _InicioState extends State<Inicio> {
                   margin:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   child: ListTile(
-                    leading: const Icon(Icons.laptop),
-                    trailing: const Icon(Icons.view_list),
+                    leading: const Icon(Icons.person_3_rounded),
+                    trailing: const Icon(Icons.view_list_outlined),
                     title: Text(
-                      usuario.nombre,
+                      usuario.nombres,
                       style: const TextStyle(fontSize: 20),
                     ),
                     onTap: () {

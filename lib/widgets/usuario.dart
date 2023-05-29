@@ -1,6 +1,6 @@
 class Usuario {
   final String id;
-  final String nombre;
+  final String nombres;
   final String apellidos;
   final String correo;
   final String genero;
@@ -8,7 +8,7 @@ class Usuario {
 
   Usuario(
       {required this.id,
-      required this.nombre,
+      required this.nombres,
       required this.apellidos,
       required this.correo,
       required this.genero,
@@ -17,7 +17,7 @@ class Usuario {
   factory Usuario.fromJson(Map<String, dynamic> json) {
     return Usuario(
       id: json['CLI_ID'],
-      nombre: json['CLI_NOMBRES'],
+      nombres: json['CLI_NOMBRES'],
       apellidos: json['CLI_APELLIDOS'],
       correo: json['CLI_CORREO'],
       genero: json['CLI_GENERO'],

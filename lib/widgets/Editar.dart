@@ -5,7 +5,7 @@ import 'package:aplicacion_asly/widgets/Rutas.dart';
 
 class Editar extends StatefulWidget {
   final Usuario usuario;
-  const Editar({super.key, required this.usuario});
+  const Editar({Key? key, required this.usuario}) : super(key: key);
 
   @override
   State<Editar> createState() => _EditarState();
@@ -21,7 +21,7 @@ class _EditarState extends State<Editar> {
   @override
   void initState() {
     super.initState();
-    cNombre.text = widget.usuario.nombre;
+    cNombre.text = widget.usuario.nombres;
     cApellidos.text = widget.usuario.apellidos;
     cCorreo.text = widget.usuario.correo;
     cGenero.text = widget.usuario.genero;
@@ -48,35 +48,58 @@ class _EditarState extends State<Editar> {
       appBar: AppBar(
         title: const Text("Editar Usuarios"),
       ),
-      body: Column(
-        children: [
-          TextFormField(
-            controller: cNombre,
-            decoration: const InputDecoration(labelText: "Nombre"),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          TextFormField(
-            controller: cApellidos,
-            decoration: const InputDecoration(labelText: "Apellidos"),
+          elevation: 5,
+          child: Padding(
+            padding: const EdgeInsets.all(8), // Ajusta el padding interno
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  controller: cNombre,
+                  decoration: const InputDecoration(labelText: "Nombre"),
+                ),
+                TextFormField(
+                  controller: cApellidos,
+                  decoration: const InputDecoration(labelText: "Apellidos"),
+                ),
+                TextFormField(
+                  controller: cCorreo,
+                  decoration: const InputDecoration(labelText: "Correo"),
+                ),
+                TextFormField(
+                  controller: cGenero,
+                  decoration: const InputDecoration(labelText: "Genero"),
+                ),
+                TextFormField(
+                  controller: cTelefono,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(labelText: "Telefono"),
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 40, // Ajusta la altura del botón
+                  child: ElevatedButton(
+                    onPressed: () {
+                      editarUsuario(context);
+                    },
+                    child: const Text("Editar"),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          TextFormField(
-            controller: cCorreo,
-            decoration: const InputDecoration(labelText: "Correo"),
-          ),
-          TextFormField(
-            controller: cGenero,
-            decoration: const InputDecoration(labelText: "Genero"),
-          ),
-          TextFormField(
-            controller: cTelefono,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: "Telefono"),
-          ),
-          ElevatedButton(
-              onPressed: () {
-                editarUsuario(context);
-              },
-              child: const Text("Editar"))
-        ],
+        ),
       ),
     );
   }

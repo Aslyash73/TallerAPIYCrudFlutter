@@ -15,8 +15,8 @@ class Detalle extends StatefulWidget {
 
 class _DetalleState extends State<Detalle> {
   void eliminarUsuario(context) async {
-    await http.post(Uri.parse(Rutas.dirServerEliminar + widget.usuario.id),
-        body: {'id': widget.usuario.id.toString()});
+    await http
+        .post(Uri.parse("${Rutas.dirServerEliminar}&id=${widget.usuario.id}"));
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
@@ -76,7 +76,7 @@ class _DetalleState extends State<Detalle> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "NOMBRE: ${widget.usuario.nombre}",
+                    "NOMBRE: ${widget.usuario.nombres}",
                     style: const TextStyle(fontSize: 24),
                     textAlign: TextAlign.center,
                   ),

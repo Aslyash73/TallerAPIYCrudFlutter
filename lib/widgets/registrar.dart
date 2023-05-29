@@ -20,7 +20,7 @@ class _CrearState extends State<Crear> {
 
   Future<void> crearUsuario(context) async {
     await http.post(Uri.parse(Rutas.dirServerRegistrar), body: {
-      'nombre': cNombre.text,
+      'nombres': cNombre.text,
       'apellidos': cApellidos.text,
       'correo': cCorreo.text,
       'genero': cGenero,

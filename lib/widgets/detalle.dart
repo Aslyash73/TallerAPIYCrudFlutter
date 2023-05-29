@@ -1,8 +1,8 @@
 import 'package:aplicacion_asly/widgets/usuario.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:aplicacion_asly/widgets/Rutas.dart';
 import 'package:aplicacion_asly/widgets/Editar.dart';
-import 'package:http/http.dart' as http;
 
 class Detalle extends StatefulWidget {
   final Usuario usuario;
@@ -77,27 +77,34 @@ class _DetalleState extends State<Detalle> {
                 children: [
                   Text(
                     "NOMBRE: ${widget.usuario.nombres}",
-                    style: const TextStyle(fontSize: 24),
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 10),
                   Text(
                     "APELLIDOS: ${widget.usuario.apellidos}",
-                    style: const TextStyle(fontSize: 24),
+                    style: const TextStyle(fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 10),
                   Text(
                     "CORREO: ${widget.usuario.correo}",
-                    style: const TextStyle(fontSize: 24),
+                    style: const TextStyle(fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 10),
                   Text(
-                    "GENERO: ${widget.usuario.genero}",
-                    style: const TextStyle(fontSize: 24),
+                    "GÉNERO: ${widget.usuario.genero}",
+                    style: const TextStyle(fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 10),
                   Text(
-                    "TELEFONO: ${widget.usuario.telefono}",
-                    style: const TextStyle(fontSize: 24),
+                    "TELÉFONO: ${widget.usuario.telefono}",
+                    style: const TextStyle(fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
                 ],

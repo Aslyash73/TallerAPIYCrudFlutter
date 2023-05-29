@@ -55,48 +55,50 @@ class _EditarState extends State<Editar> {
             borderRadius: BorderRadius.circular(10),
           ),
           elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(8), // Ajusta el padding interno
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                TextFormField(
-                  controller: cNombre,
-                  decoration: const InputDecoration(labelText: "Nombre"),
-                ),
-                TextFormField(
-                  controller: cApellidos,
-                  decoration: const InputDecoration(labelText: "Apellidos"),
-                ),
-                TextFormField(
-                  controller: cCorreo,
-                  decoration: const InputDecoration(labelText: "Correo"),
-                ),
-                TextFormField(
-                  controller: cGenero,
-                  decoration: const InputDecoration(labelText: "Genero"),
-                ),
-                TextFormField(
-                  controller: cTelefono,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: "Telefono"),
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  height: 40, // Ajusta la altura del botón
-                  child: ElevatedButton(
-                    onPressed: () {
-                      editarUsuario(context);
-                    },
-                    child: const Text("Editar"),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TextFormField(
+                    controller: cNombre,
+                    decoration: const InputDecoration(labelText: "Nombre"),
+                  ),
+                  TextFormField(
+                    controller: cApellidos,
+                    decoration: const InputDecoration(labelText: "Apellidos"),
+                  ),
+                  TextFormField(
+                    controller: cCorreo,
+                    decoration: const InputDecoration(labelText: "Correo"),
+                  ),
+                  TextFormField(
+                    controller: cGenero,
+                    decoration: const InputDecoration(labelText: "Genero"),
+                  ),
+                  TextFormField(
+                    controller: cTelefono,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: "Telefono"),
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        editarUsuario(context);
+                      },
+                      child: const Text("Guardar"),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -68,7 +68,7 @@ class _DetalleState extends State<Detalle> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            elevation: 5,
+            elevation: 6,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

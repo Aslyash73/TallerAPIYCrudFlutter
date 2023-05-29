@@ -64,23 +64,53 @@ class _EditarState extends State<Editar> {
                   TextFormField(
                     controller: cNombre,
                     decoration: const InputDecoration(labelText: "Nombre"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Este dato es requerido';
+                      }
+                      return null;
+                    },
                   ),
                   TextFormField(
                     controller: cApellidos,
                     decoration: const InputDecoration(labelText: "Apellidos"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Este dato es requerido';
+                      }
+                      return null;
+                    },
                   ),
                   TextFormField(
                     controller: cCorreo,
                     decoration: const InputDecoration(labelText: "Correo"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Este dato es requerido';
+                      }
+                      return null;
+                    },
                   ),
                   TextFormField(
                     controller: cGenero,
                     decoration: const InputDecoration(labelText: "Genero"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Este dato es requerido';
+                      }
+                      return null;
+                    },
                   ),
                   TextFormField(
                     controller: cTelefono,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: "Telefono"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Este dato es requerido';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 16),
                   Container(

@@ -1,11 +1,11 @@
-import 'package:aplicacion_asly/widgets/producto.dart';
+import 'package:aplicacion_asly/widgets/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'Ruta.dart';
+import 'package:aplicacion_asly/widgets/Rutas.dart';
 
 class Editar extends StatefulWidget {
-  final Producto producto;
-  const Editar({super.key, required this.producto});
+  final Usuario usuario;
+  const Editar({super.key, required this.usuario});
 
   @override
   State<Editar> createState() => _EditarState();
@@ -13,21 +13,31 @@ class Editar extends StatefulWidget {
 
 class _EditarState extends State<Editar> {
   TextEditingController cNombre = TextEditingController();
-  TextEditingController cPrecio = TextEditingController();
+  TextEditingController cApellidos = TextEditingController();
+  TextEditingController cCorreo = TextEditingController();
+  TextEditingController cGenero = TextEditingController();
+  TextEditingController cTelefono = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    cNombre.text = widget.producto.nombre;
-    cPrecio.text = widget.producto.precio.toString();
+    cNombre.text = widget.usuario.nombre;
+    cApellidos.text = widget.usuario.apellidos;
+    cCorreo.text = widget.usuario.correo;
+    cGenero.text = widget.usuario.genero;
+    cTelefono.text = widget.usuario.telefono.toString();
   }
 
-  Future<void> EditarProducto(context) async {
-    await http.post(Uri.parse("${Ruta.DIR_SERVER}/editar.php"), body: {
-      'id': widget.producto.id.toString(),
-      'nombre': cNombre.text,
-      'precio': cPrecio.text
+  Future<void> editarUsuario(context) async {
+    final response = await http.post(Uri.parse(Rutas.dirServerEditar), body: {
+      'id': widget.usuario.id,
+      'nombres': cNombre.text,
+      'apellidos': cApellidos.text,
+      'correo': cCorreo.text,
+      'genero': cGenero.text,
+      'telefono': cTelefono.text,
     });
+    print(response.statusCode);
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
@@ -36,7 +46,7 @@ class _EditarState extends State<Editar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Editar Producto"),
+        title: const Text("Editar Usuarios"),
       ),
       body: Column(
         children: [
@@ -45,13 +55,25 @@ class _EditarState extends State<Editar> {
             decoration: const InputDecoration(labelText: "Nombre"),
           ),
           TextFormField(
-            controller: cPrecio,
+            controller: cApellidos,
+            decoration: const InputDecoration(labelText: "Apellidos"),
+          ),
+          TextFormField(
+            controller: cCorreo,
+            decoration: const InputDecoration(labelText: "Correo"),
+          ),
+          TextFormField(
+            controller: cGenero,
+            decoration: const InputDecoration(labelText: "Genero"),
+          ),
+          TextFormField(
+            controller: cTelefono,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: "Precio"),
+            decoration: const InputDecoration(labelText: "Telefono"),
           ),
           ElevatedButton(
               onPressed: () {
-                EditarProducto(context);
+                editarUsuario(context);
               },
               child: const Text("Editar"))
         ],

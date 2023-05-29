@@ -1,81 +1,96 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'Ruta.dart';
 import 'package:http/http.dart' as http;
-import 'producto.dart';
 import 'detalle.dart';
-import 'crear.dart';
+import 'registrar.dart';
+import 'Rutas.dart';
+import 'usuario.dart';
 
 class Inicio extends StatefulWidget {
-  const Inicio({super.key});
+  const Inicio({Key? key}) : super(key: key);
 
   @override
-  State<Inicio> createState() => _InicioState();
+  _InicioState createState() => _InicioState();
 }
 
 class _InicioState extends State<Inicio> {
-  
-  late Future<List<Producto>> productos;
+  late Future<List<Usuario>> usuarios;
 
   @override
-  void initState(){
-    super.initState();  
-    productos = getProductos();
+  void initState() {
+    super.initState();
+    usuarios = getUsuarios();
   }
 
-  Future<List<Producto>> getProductos() async{
-     final respuesta =  await http.get(Uri.parse("${Ruta.DIR_SERVER}/listar.php"));
-     final items  = json.decode(respuesta.body).cast<Map<String,dynamic>>();
-     List<Producto> pr = items.map<Producto>((json){
-        return Producto.fromJson(json);
-     }).toList();
-     return pr;
+  Future<List<Usuario>> getUsuarios() async {
+    try {
+      final url = Uri.parse(Rutas.dirServerListar);
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        return List<Usuario>.from(jsonData.map((x) => Usuario.fromJson(x)));
+      } else {
+        throw Exception('Failed to load usuarios');
+      }
+    } catch (error) {
+      throw Exception('Error: $error');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Listado de productos"),
-        
+        title: const Text("Listado de usuarios"),
       ),
-      body: FutureBuilder<List<Producto>>(
-          future: productos,
-          builder: (BuildContext context , AsyncSnapshot snapshot){
-            if(!snapshot.hasData) return const CircularProgressIndicator();
-
+      body: FutureBuilder<List<Usuario>>(
+        future: usuarios,
+        builder: (BuildContext context, AsyncSnapshot<List<Usuario>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No hay usuarios disponibles'));
+          } else {
             return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (BuildContext context , int index){
-                var dato = snapshot.data[index];
+              itemCount: snapshot.data!.length,
+              itemBuilder: (BuildContext context, int index) {
+                var usuario = snapshot.data![index];
                 return Card(
+                  elevation: 2,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   child: ListTile(
                     leading: const Icon(Icons.laptop),
                     trailing: const Icon(Icons.view_list),
                     title: Text(
-                      dato.nombre,
+                      usuario.nombre,
                       style: const TextStyle(fontSize: 20),
                     ),
                     onTap: () {
-                      Navigator.push(context, 
-                      MaterialPageRoute(builder: (context) => Detalle(producto: dato)));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Detalle(usuario: usuario)),
+                      );
                     },
                   ),
                 );
               },
             );
-          },
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (_){
-             return Crear();
-          }
-          ));
-        }
-      )
+        child: const Icon(Icons.person),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const Crear()),
+          );
+        },
+      ),
     );
   }
 }
